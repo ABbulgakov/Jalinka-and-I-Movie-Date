@@ -24,15 +24,18 @@
 
     *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
     html, body{ height:100%; }
+
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       -webkit-text-size-adjust:100%;
-      overflow:hidden;
+      overflow-x:hidden;
+      overflow-y:auto; /* allow vertical scrolling */
       color:var(--text);
       background:#fff7fb;
     }
 
+    /* Soft animated background (light) */
     .bg{
       position:fixed; inset:-60px;
       background:
@@ -43,15 +46,17 @@
       animation: drift 10s ease-in-out infinite alternate;
       transform: translateZ(0);
       filter: saturate(1.05);
+      z-index:-1;
     }
     @keyframes drift{
       0%{ transform: scale(1) translate(0,0); }
       100%{ transform: scale(1.03) translate(-10px, 8px); }
     }
 
+    /* App layout (safe areas) */
     .app{
       position:relative;
-      height:100%;
+      min-height:100%;
       padding:
         calc(18px + var(--safe-top))
         calc(18px + var(--safe-right))
@@ -65,27 +70,37 @@
     .page{
       display:none;
       width: min(600px, 100%);
-      min-height: 100%;
+      min-height: calc(100vh - (18px + var(--safe-top)) - (18px + var(--safe-bottom)));
       padding: 8px 0;
+      overflow-y: auto;                 /* page scroll */
+      -webkit-overflow-scrolling: touch; /* smooth iOS scroll */
     }
     .page.active{ display:block; }
 
-    h1,h2{
+    /* Responsive typography */
+    h1{
       margin:0 0 10px;
       line-height:1.06;
       letter-spacing:.2px;
+      font-size: clamp(26px, 7vw, 36px);
+      font-weight: 1000;
     }
-    h1{ font-size: 36px; font-weight: 1000; }
-    h2{ font-size: 32px; font-weight: 1000; }
+    h2{
+      margin:0 0 10px;
+      line-height:1.06;
+      letter-spacing:.2px;
+      font-size: clamp(24px, 6.5vw, 32px);
+      font-weight: 1000;
+    }
     p{
       margin:0;
-      font-size: 18px;
+      font-size: clamp(16px, 4.6vw, 18px);
       line-height:1.55;
       color: var(--muted);
     }
 
     .center{
-      min-height: calc(100vh - (18px + var(--safe-top)) - (18px + var(--safe-bottom)));
+      min-height: 100%;
       display:flex;
       flex-direction:column;
       justify-content:center;
@@ -97,6 +112,7 @@
       gap:12px;
       margin-top: 14px;
       width:100%;
+      flex-wrap: wrap; /* allow wrap on narrow phones */
     }
 
     button{
@@ -115,11 +131,13 @@
 
     .yes{
       flex:1;
+      min-width: 140px;
       color:white;
       background: linear-gradient(135deg, #34d399, #22c55e);
     }
     .no{
       flex:1;
+      min-width: 140px;
       color:#2d3341;
       background: rgba(255,255,255,.78);
       backdrop-filter: blur(8px);
@@ -138,54 +156,56 @@
       text-align:center;
     }
 
-    /* Prompt area (larger text + larger images) */
+    /* Prompt area (larger text + responsive images) */
     .promptLine{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       gap:12px;
       margin-top: 12px;
-      min-height: 170px;
     }
     .promptText{
-      font-size: 26px;          /* larger */
+      font-size: clamp(18px, 5.2vw, 26px);
       font-weight: 1000;
       color: rgba(31,36,48,.92);
       line-height: 1.12;
+      flex: 1;
     }
     .promptMedia{
       margin-left:auto;
-      width: 170px;             /* larger */
-      height: 170px;            /* larger */
-      border-radius: 34px;
+      width: clamp(120px, 36vw, 170px);
+      height: clamp(120px, 36vw, 170px);
+      border-radius: clamp(22px, 6vw, 34px);
       object-fit: cover;
       box-shadow: 0 30px 90px rgba(20,20,40,.18);
       display:none;
+      flex: 0 0 auto;
     }
     .promptEmoji{
       margin-left:auto;
-      font-size: 74px;
+      font-size: 62px;
       display:none;
+      flex: 0 0 auto;
     }
 
-    /* Invitation layout: big text + bottom image */
+    /* Invitation layout: responsive big text + bottom image */
     .inviteLayout{
       display:flex;
       flex-direction:column;
-      min-height: calc(100vh - (18px + var(--safe-top)) - (18px + var(--safe-bottom)));
       gap:14px;
       padding-top: 10px;
+      min-height: 100%;
     }
     .inviteBigText{
-      font-size: 28px;          /* much larger */
+      font-size: clamp(20px, 5.8vw, 28px);
       font-weight: 950;
       color: rgba(31,36,48,.92);
-      line-height: 1.22;
+      line-height: 1.2;
     }
     .bottomImg{
       margin-top:auto;
       width:100%;
-      height: min(42vh, 420px);
-      border-radius: 36px;
+      height: clamp(240px, 38vh, 420px);
+      border-radius: clamp(24px, 7vw, 36px);
       overflow:hidden;
       box-shadow: 0 30px 90px rgba(20,20,40,.16);
       position:relative;
@@ -211,6 +231,7 @@
       pointer-events:none;
       overflow:hidden;
       display:none;
+      z-index: 50;
     }
     .heart{
       position:absolute;
@@ -230,15 +251,16 @@
       position:fixed; inset:0;
       pointer-events:none;
       display:none;
+      z-index: 40;
     }
     .yayText{
-      font-size: 66px;
+      font-size: clamp(44px, 12vw, 66px);
       font-weight: 1000;
       letter-spacing: .6px;
       color: rgba(31,36,48,.92);
       text-align:center;
       line-height:1;
-      margin-top: 12vh;
+      margin-top: 10vh;
       text-shadow: 0 24px 60px rgba(20,20,40,.14);
     }
 
@@ -261,12 +283,12 @@
     .posterLayout{
       display:flex;
       flex-direction:column;
-      min-height: calc(100vh - (18px + var(--safe-top)) - (18px + var(--safe-bottom)));
       gap:14px;
       padding-top: 10px;
+      min-height: 100%;
     }
     .posterTitleTop{
-      font-size: 34px;
+      font-size: clamp(24px, 6.2vw, 34px);
       font-weight: 1000;
       color: rgba(31,36,48,.92);
       line-height: 1.06;
@@ -274,8 +296,8 @@
     }
     .posterFrame{
       width:100%;
-      height: min(56vh, 520px);  /* smaller than full screen */
-      border-radius: 36px;
+      height: clamp(320px, 52vh, 520px);
+      border-radius: clamp(24px, 7vw, 36px);
       overflow:hidden;
       box-shadow: 0 34px 110px rgba(20,20,40,.18);
       background: rgba(255,255,255,.35);
@@ -306,7 +328,7 @@
     }
     .cdNum{
       font-weight: 1000;
-      font-size: 24px;
+      font-size: clamp(18px, 6vw, 24px);
       letter-spacing:.4px;
       color: rgba(31,36,48,.90);
     }
@@ -386,9 +408,9 @@
     <!-- PAGE 4: ITINERARY -->
     <section class="page" id="p4">
       <div class="center" style="justify-content:flex-start; padding-top: 12px;">
-        <h1 style="font-size:42px;">Plan for the night</h1>
+        <h1 style="font-size:clamp(28px, 7.5vw, 42px);">Plan for the night</h1>
 
-        <p style="font-size:22px; color: rgba(31,36,48,.86); line-height:1.38;">
+        <p style="font-size:clamp(16px, 5vw, 22px); color: rgba(31,36,48,.86); line-height:1.38;">
           • At 7PM we will go the store to grab our favorite snacks<br>
           • After that drive home and get cozy to watch the movie<br><br>
           Please have your:<br>
@@ -426,7 +448,7 @@
     <!-- PAGE 6: COUNTDOWN -->
     <section class="page" id="p6">
       <div class="center">
-        <h2 style="font-size:42px;">See you tomorrow at 7 💘</h2>
+        <h2 style="font-size:clamp(28px, 7.5vw, 42px);">See you tomorrow at 7 💘</h2>
 
         <div class="countdown" aria-live="polite">
           <div class="cd"><div class="cdNum" id="d">—</div><div class="cdLbl">Days</div></div>
@@ -469,7 +491,7 @@
       }
       if(n === 2){
         startFireworks();
-        heartBurst(22); // few hearts only
+        heartBurst(22);
       }
     }
 
@@ -646,7 +668,7 @@
     const heartBtn = document.getElementById("heartBtn");
     const heartChars = ["💖","💗","💘","💕","💞","💓","💝"];
 
-    function heartBurst(count = 55){
+    function heartBurst(count = 45){
       hearts.style.display = "block";
       for(let i=0;i<count;i++){
         const h = document.createElement("div");
@@ -682,7 +704,7 @@
     function getTargetDate(){
       const now = new Date();
       let year = now.getFullYear();
-      let target = new Date(year, 1, 14, 19, 0, 0);
+      let target = new Date(year, 1, 14, 19, 0, 0); // Feb 14, 7PM
       if(target.getTime() < now.getTime()){
         year += 1;
         target = new Date(year, 1, 14, 19, 0, 0);
