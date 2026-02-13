@@ -72,8 +72,8 @@
       width: min(600px, 100%);
       min-height: calc(100vh - (18px + var(--safe-top)) - (18px + var(--safe-bottom)));
       padding: 8px 0;
-      overflow-y: auto;                 /* page scroll */
-      -webkit-overflow-scrolling: touch; /* smooth iOS scroll */
+      overflow-y: auto;                  /* page scroll */
+      -webkit-overflow-scrolling: touch;  /* smooth iOS scroll */
     }
     .page.active{ display:block; }
 
@@ -340,6 +340,21 @@
       text-transform: uppercase;
       letter-spacing:.8px;
     }
+
+    /* Subtle pulse animation for the "Talk..." line */
+    .pulseLine{
+      display:inline-block;
+      animation: softPulse 2.8s ease-in-out infinite;
+      font-weight: 1000;
+      background: linear-gradient(90deg, #ff5aa5, #ff85c2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    @keyframes softPulse{
+      0%   { transform: scale(1); opacity: .9; }
+      50%  { transform: scale(1.06); opacity: 1; }
+      100% { transform: scale(1); opacity: .9; }
+    }
   </style>
 </head>
 
@@ -406,22 +421,25 @@
     </section>
 
     <!-- PAGE 4: ITINERARY -->
-   <p style="font-size:clamp(16px, 5vw, 22px); color: rgba(31,36,48,.86); line-height:1.38;">
-  • At 7PM we will go the store to grab our favorite snacks<br>
-  • After that drive home and get cozy to watch the movie<br>
-  • Then we will watch the movie and eat our snacks<br>
-  • Talk aaaaaall niiiiiiight))<br><br>
+    <section class="page" id="p4">
+      <div class="center" style="justify-content:flex-start; padding-top: 12px;">
+        <h1 style="font-size:clamp(28px, 7.5vw, 42px);">Plan for the night</h1>
 
-  Please have your:<br>
-  • Laptop<br>
-  • Smile<br>
-  • Your beautifull self<br>
-  • All the jellycats<br>
-  • You!<br>
-  • Sasha on facetime plz))<br>
-  • Oh and I forgot, please don't forget to bring yourself!
-</p>
+        <p style="font-size:clamp(16px, 5vw, 22px); color: rgba(31,36,48,.86); line-height:1.38;">
+          • At 7PM we will go the store to grab our favorite snacks<br>
+          • After that drive home and get cozy to watch the movie<br>
+          • Then we will watch the movie and eat our snacks<br>
+          • <span class="pulseLine">Talk aaaaaall niiiiiiight))</span><br><br>
 
+          Please have your:<br>
+          • Laptop<br>
+          • Smile<br>
+          • Your beautifull self<br>
+          • All the jellycats<br>
+          • You!<br>
+          • Sasha on facetime plz))<br>
+          • Oh and I forgot, please don't forget to bring yourself!
+        </p>
 
         <div class="row" style="margin-top: 16px;">
           <button class="no" id="heartBtn" style="flex:0 0 64px; font-size:26px;">💖</button>
@@ -514,7 +532,7 @@
       { text: "Huh?", img: "IMG_2534.jpg" },
       { text: "Can you please be?", img: "IMG_2526.jpg" },
       { text: "Pleeeeaaseeee?", emoji: "🥺" },
-      { text: "Ну пожаааалууууйстааааа", img: "IMG_2527.PNG" },
+      { text: "Ну пожаааалууuuuyстааааа", img: "IMG_2527.PNG" },
       { text: "I cry", img: "IMG_2528.PNG" },
       { text: "Wrong answer" },
       { text: "Mam, move your cursor to YES, then click on it!", img: "IMG_2533.jpg" },
