@@ -33,7 +33,7 @@
       background:#fff7fb;
     }
 
-    /* Fullscreen soft animated background */
+    /* Soft animated background (light, no boxes) */
     .bg{
       position:fixed; inset:-60px;
       background:
@@ -50,16 +50,7 @@
       100%{ transform: scale(1.03) translate(-10px, 8px); }
     }
 
-    /* Subtle grain */
-    .grain{
-      position:fixed; inset:0;
-      pointer-events:none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-      opacity:.14;
-    }
-
-    /* App layout (iPhone safe area) */
+    /* App layout (safe areas) */
     .app{
       position:relative;
       height:100%;
@@ -75,36 +66,26 @@
 
     .page{
       display:none;
-      width: min(520px, 100%);
+      width: min(560px, 100%);
       min-height: 100%;
-      padding: 10px 0;
+      padding: 8px 0;
     }
     .page.active{ display:block; }
 
-    /* Typography */
-    .kicker{
-      font-weight: 900;
-      letter-spacing: .6px;
-      text-transform: uppercase;
-      font-size: 12px;
-      color: rgba(31,36,48,.55);
-      margin-bottom: 10px;
-    }
     h1,h2{
       margin:0 0 10px;
-      line-height:1.05;
+      line-height:1.06;
       letter-spacing:.2px;
     }
     h1{ font-size: 34px; font-weight: 1000; }
-    h2{ font-size: 26px; font-weight: 1000; }
+    h2{ font-size: 30px; font-weight: 1000; }
     p{
       margin:0;
-      font-size: 16px;
+      font-size: 18px;
       line-height:1.55;
       color: var(--muted);
     }
 
-    /* Layout helpers */
     .center{
       min-height: calc(100vh - (18px + var(--safe-top)) - (18px + var(--safe-bottom)));
       display:flex;
@@ -113,13 +94,13 @@
       gap:14px;
     }
 
-    /* Buttons (tap-friendly) */
     .row{
       display:flex;
       gap:12px;
       margin-top: 14px;
       width:100%;
     }
+
     button{
       border:0;
       border-radius: var(--btn-radius);
@@ -133,6 +114,7 @@
       user-select:none;
     }
     button:active{ transform: translateY(1px) scale(.99); }
+
     .yes{
       flex:1;
       color:white;
@@ -141,7 +123,7 @@
     .no{
       flex:1;
       color:#2d3341;
-      background: rgba(255,255,255,.75);
+      background: rgba(255,255,255,.78);
       backdrop-filter: blur(8px);
     }
     .primary{
@@ -155,72 +137,66 @@
       display:flex;
       align-items:center;
       gap:12px;
-      margin-top: 8px;
-      min-height: 110px;
+      margin-top: 12px;
+      min-height: 140px;
     }
     .promptText{
-      font-size: 18px;
-      font-weight: 900;
-      color: rgba(31,36,48,.85);
+      font-size: 22px;
+      font-weight: 1000;
+      color: rgba(31,36,48,.90);
     }
     .promptMedia{
       margin-left:auto;
-      width: 110px;
-      height: 110px;
-      border-radius: 22px;
+      width: 140px;
+      height: 140px;
+      border-radius: 30px;
       object-fit: cover;
-      box-shadow: 0 18px 40px rgba(20,20,40,.14);
+      box-shadow: 0 26px 70px rgba(20,20,40,.16);
       display:none;
     }
     .promptEmoji{
       margin-left:auto;
-      font-size: 54px;
+      font-size: 62px;
       display:none;
     }
 
-    /* Image sections */
-    .heroImgWrap{
-      margin-top: 14px;
-      width:100%;
-      border-radius: 28px;
-      overflow:hidden;
-      box-shadow: 0 22px 60px rgba(20,20,40,.14);
-      min-height: 260px;
-      position:relative;
+    /* Invitation image pinned bottom */
+    .inviteLayout{
+      display:flex;
+      flex-direction:column;
+      min-height: calc(100vh - (18px + var(--safe-top)) - (18px + var(--safe-bottom)));
+      gap:14px;
+      padding-top: 10px;
     }
-    .heroImg{
-      position:absolute;
-      inset:0;
+    .inviteText{
+      font-size: 22px;
+      color: rgba(31,36,48,.85);
+      line-height: 1.45;
+    }
+    .bottomImg{
+      margin-top:auto;
       width:100%;
-      height:100%;
+      height: min(42vh, 420px);
+      border-radius: 36px;
+      overflow:hidden;
+      box-shadow: 0 30px 90px rgba(20,20,40,.16);
+      position:relative;
+      background: rgba(255,255,255,.35);
+    }
+    .bottomImg img{
+      position:absolute; inset:0;
+      width:100%; height:100%;
       object-fit: cover;
-      transform: scale(1.03);
+      transform: scale(1.02);
     }
     .softOverlay{
-      position:absolute;
-      inset:0;
-      background: radial-gradient(800px 420px at 50% 12%, rgba(255,255,255,.65), transparent 60%);
-      pointer-events:none;
+      position:absolute; inset:0;
+      background: radial-gradient(900px 460px at 50% 12%, rgba(255,255,255,.58), transparent 60%);
       mix-blend-mode: screen;
-    }
-
-    /* Love notes (page 4) */
-    .loveNotes{
-      position:fixed;
-      inset:0;
       pointer-events:none;
-      opacity:.85;
-    }
-    .loveNote{
-      position:absolute;
-      font-size: 12px;
-      font-weight: 1000;
-      color: rgba(255,90,165,.85);
-      transform: rotate(var(--r, -8deg));
-      text-shadow: 0 10px 20px rgba(20,20,40,.10);
     }
 
-    /* Hearts overlay */
+    /* Hearts overlay (reduced count to prevent lag) */
     .hearts{
       position:fixed;
       inset:0;
@@ -231,129 +207,84 @@
     .heart{
       position:absolute;
       font-size: 24px;
-      animation: floatUp 3.6s ease-in forwards;
+      animation: floatUp 3.8s ease-in forwards;
       opacity: .95;
       filter: drop-shadow(0 10px 10px rgba(0,0,0,.12));
     }
     @keyframes floatUp{
       0%{ transform: translateY(20px) scale(.9); opacity:0; }
-      10%{ opacity:1; }
-      100%{ transform: translateY(-110vh) scale(1.2); opacity:0; }
+      12%{ opacity:1; }
+      100%{ transform: translateY(-110vh) scale(1.18); opacity:0; }
     }
 
-    /* Movie poster (page 5) — no box, still poster-like */
-    .poster{
-      margin-top: 12px;
+    /* Fireworks canvas + yay */
+    .fw{
+      position:fixed; inset:0;
+      pointer-events:none;
+      display:none;
+    }
+    .yayText{
+      font-size: 64px;
+      font-weight: 1000;
+      letter-spacing: .6px;
+      color: rgba(31,36,48,.92);
+      text-align:center;
+      line-height:1;
+      margin-top: 12vh;
+      text-shadow: 0 24px 60px rgba(20,20,40,.14);
+    }
+
+    /* Movie poster page (ONLY image) */
+    .fullPoster{
       position:relative;
       width:100%;
-      min-height: 360px;
-      border-radius: 34px;
+      height: calc(100vh - (18px + var(--safe-top)) - (18px + var(--safe-bottom)));
+      border-radius: 36px;
       overflow:hidden;
-      box-shadow: 0 26px 70px rgba(20,20,40,.16);
-      background:#111;
+      box-shadow: 0 34px 110px rgba(20,20,40,.18);
+      background: rgba(255,255,255,.35);
     }
-    .posterBg{
-      position:absolute;
-      inset:-18px;
-      background-image: url("999.jpeg");
-      background-size: cover;
-      background-position: center;
-      filter: blur(12px) saturate(1.25) contrast(1.05);
-      opacity:.60;
-      transform: scale(1.12);
-    }
-    .posterFilm{
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(900px 500px at 15% 20%, rgba(255,90,165,.42) 0%, transparent 60%),
-        radial-gradient(900px 500px at 85% 10%, rgba(108,124,255,.38) 0%, transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.60), rgba(0,0,0,.18), rgba(0,0,0,.62));
-      mix-blend-mode: screen;
-    }
-    .posterContent{
-      position:absolute;
-      inset:0;
-      padding: 18px 16px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      color: rgba(255,255,255,.92);
-    }
-    .posterTop{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      font-weight: 1000;
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 2.2px;
-      opacity:.95;
-    }
-    .pill{
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.18);
-      box-shadow: 0 14px 28px rgba(0,0,0,.18);
-      font-size: 10px;
-      letter-spacing: 1px;
-    }
-    .posterTitle{
-      margin-top: 12px;
-      font-size: 46px;
-      font-weight: 1000;
-      line-height: .95;
-      letter-spacing: 1.2px;
-      text-shadow: 0 20px 40px rgba(0,0,0,.35);
-    }
-    .posterTitle span{
+    .fullPoster img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
       display:block;
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      opacity:.92;
-      margin-bottom: 8px;
     }
-    .posterTag{
-      font-size: 14px;
-      color: rgba(255,255,255,.82);
-      line-height: 1.45;
-      max-width: 320px;
-      margin-top: 8px;
-    }
-    .posterBottom{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      gap:12px;
-      font-size: 11px;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.75);
-      line-height: 1.45;
-    }
-    .stars{ letter-spacing:2px; text-align:right; font-weight:1000; }
 
-    /* Countdown (page 6) */
+    /* Fullscreen overlay image (IMG_2536) */
+    .overlay{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:none;
+      background:#000;
+    }
+    .overlay img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+
+    /* Countdown */
     .countdown{
-      margin-top: 14px;
+      margin-top: 16px;
       display:grid;
       grid-template-columns: repeat(4, 1fr);
       gap:10px;
       width:100%;
     }
     .cd{
-      border-radius: 20px;
-      padding: 12px 10px;
+      border-radius: 22px;
+      padding: 14px 10px;
       text-align:center;
-      background: rgba(255,255,255,.55);
+      background: rgba(255,255,255,.58);
       backdrop-filter: blur(10px);
-      box-shadow: 0 18px 40px rgba(20,20,40,.10);
+      box-shadow: 0 20px 50px rgba(20,20,40,.12);
     }
     .cdNum{
       font-weight: 1000;
-      font-size: 22px;
+      font-size: 24px;
       letter-spacing:.4px;
       color: rgba(31,36,48,.90);
     }
@@ -370,31 +301,24 @@
 
 <body>
   <div class="bg"></div>
-  <div class="grain"></div>
 
+  <div class="overlay" id="overlay">
+    <img id="overlayImg" alt="overlay" />
+  </div>
+
+  <canvas class="fw" id="fw"></canvas>
   <div class="hearts" id="hearts"></div>
-  <div class="loveNotes" id="loveNotes"></div>
 
   <div class="app">
-    <!-- PAGE 1 -->
+    <!-- PAGE 1: QUESTION -->
     <section class="page active" id="p1">
       <div class="center">
-        <div class="kicker">one tiny thing</div>
-        <h2>Please have your sound on</h2>
-        <p>This message will disappear in 5 seconds.</p>
-      </div>
-    </section>
-
-    <!-- PAGE 2 -->
-    <section class="page" id="p2">
-      <div class="center">
-        <div class="kicker">question</div>
         <h1>Are you available this Saturday at 7pm?</h1>
         <p>(Choose carefully 😇)</p>
 
         <div class="row">
-          <button class="yes" id="yes2">Yes</button>
-          <button class="no" id="no2">No</button>
+          <button class="yes" id="yesBtn">Yes</button>
+          <button class="no" id="noBtn">No</button>
         </div>
 
         <div class="promptLine" id="promptLine">
@@ -405,104 +329,76 @@
       </div>
     </section>
 
-    <!-- PAGE 3 -->
-    <section class="page" id="p3">
-      <div class="center" style="justify-content:flex-start; padding-top: 18px;">
-        <div class="kicker">invitation</div>
-        <h2>My dear Jalina,</h2>
-        <p>I would like to invite you to a movie date this Saturday, at <strong>8pm</strong>, your time.</p>
+    <!-- PAGE 2: YAAAAY -->
+    <section class="page" id="p2">
+      <div class="center" style="justify-content:flex-start;">
+        <div class="yayText">Yaaaay</div>
+        <div style="margin-top:auto;">
+          <div class="row">
+            <button class="primary" id="yayNext">Next</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <div class="heroImgWrap" aria-label="movie vibe image">
-          <img class="heroImg" src="999.jpeg" alt="movie vibe" />
+    <!-- PAGE 3: INVITATION -->
+    <section class="page" id="p3">
+      <div class="inviteLayout">
+        <h2>My dear Jalina,</h2>
+        <div class="inviteText">
+          I would like to invite you to a movie date this Saturday, at <strong>8pm</strong>, your time.
+        </div>
+
+        <div class="bottomImg">
+          <img src="999.jpeg" alt="invite image" />
           <div class="softOverlay"></div>
         </div>
 
-        <div class="row" style="margin-top:auto;">
+        <div class="row" style="margin-top: 14px;">
           <button class="primary" id="itineraryBtn" style="display:none;">Itinerary of the night</button>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 4 -->
+    <!-- PAGE 4: ITINERARY -->
     <section class="page" id="p4">
-      <div class="center" style="justify-content:flex-start; padding-top: 18px;">
-        <div class="kicker">itinerary</div>
-        <h2>Saturday Night Plan 💗</h2>
-        <p>jazzy • cozy • valentine energy</p>
+      <div class="center" style="justify-content:flex-start; padding-top: 12px;">
+        <h1 style="font-size:40px;">Plan for the night</h1>
 
-        <p style="margin-top: 10px; color: rgba(31,36,48,.75); font-weight: 900;">
-          What we’ll do / What we’ll need:
-        </p>
-        <p style="margin-top: 10px;">
-          • At 7 we will go to the store to grab snacks<br>
-          • She will need her laptop<br>
-          • She will need her smile<br>
-          • You<br>
-          • Blanket<br>
-          • All the jelly cats<br>
-          • Sasha<br>
-          • You
+        <p style="font-size:20px; color: rgba(31,36,48,.85);">
+          • At 7PM we will go the store to grab our favorite snacks<br>
+          • After that drive home and get cozy to watch the movie<br><br>
+          Please have your:<br>
+          • Laptop<br>
+          • Smile<br>
+          • Your beautifull self<br>
+          • All the jellycats<br>
+          • You!<br>
+          • Sasha on facetime plz))<br>
+          • Oh and I forgot, please don't forget to bring yourself!
         </p>
 
-        <div class="row" style="margin-top: 14px;">
+        <div class="row" style="margin-top: 16px;">
           <button class="no" id="heartBtn" style="flex:0 0 64px; font-size:26px;">💖</button>
-          <button class="primary" id="toMovieBtn">Next</button>
+          <button class="primary" id="toPoster">Next</button>
         </div>
       </div>
     </section>
 
-    <!-- PAGE 5 -->
+    <!-- PAGE 5: POSTER ONLY (tap poster to continue) -->
     <section class="page" id="p5">
-      <div class="center" style="justify-content:flex-start; padding-top: 18px;">
-        <div class="kicker">movie reveal</div>
-        <h2>Tonight’s movie is…</h2>
-
-        <div class="poster" role="img" aria-label="About Time movie poster (stylized)">
-          <div class="posterBg"></div>
-          <div class="posterFilm"></div>
-
-          <div class="posterContent">
-            <div>
-              <div class="posterTop">
-                <div class="pill">Tonight • 8 PM</div>
-                <div class="pill">For Jalina 💗</div>
-              </div>
-
-              <div class="posterTitle">
-                <span>ABOUT</span>
-                TIME
-              </div>
-
-              <div class="posterTag">
-                Cozy romance. Heartwarming. Perfect for us.
-              </div>
-            </div>
-
-            <div class="posterBottom">
-              <div>
-                A MOVIE DATE PRESENTATION<br>
-                DIRECTED BY: YOUR FAVORITE PERSON
-              </div>
-              <div class="stars">
-                ★★★★★<br>
-                <span style="opacity:.85;">Certified Cozy</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row" style="margin-top:auto;">
-          <button class="primary" id="toCountdownBtn">Next</button>
+      <div class="center" style="justify-content:center;">
+        <div class="fullPoster" id="posterTap" aria-label="Movie poster">
+          <img src="aboutTimePoster.jpg" alt="About Time poster" />
         </div>
       </div>
     </section>
 
-    <!-- PAGE 6 -->
+    <!-- PAGE 6: COUNTDOWN -->
     <section class="page" id="p6">
       <div class="center">
-        <div class="kicker">final page</div>
-        <h2>See you tomorrow at 7 💘</h2>
-        <p>Countdown to Saturday, Feb 14th, 7:00 PM</p>
+        <h2 style="font-size:40px;">See you tomorrow at 7 💘</h2>
+        <p style="font-size:18px;">Countdown to Saturday, Feb 14th, 7:00 PM</p>
 
         <div class="countdown" aria-live="polite">
           <div class="cd"><div class="cdNum" id="d">—</div><div class="cdLbl">Days</div></div>
@@ -512,14 +408,14 @@
         </div>
 
         <div class="row" style="margin-top: 18px;">
-          <button class="primary" id="restartBtn">Back to start</button>
+          <button class="primary" id="restartBtn">Start over</button>
         </div>
       </div>
     </section>
   </div>
 
   <script>
-    // Pages
+    // ---------- Pages ----------
     const pages = {
       1: document.getElementById("p1"),
       2: document.getElementById("p2"),
@@ -532,41 +428,65 @@
       Object.values(pages).forEach(p => p.classList.remove("active"));
       pages[n].classList.add("active");
       window.scrollTo({ top: 0, behavior: "instant" });
+
+      // toggle fireworks canvas visibility
+      const fw = document.getElementById("fw");
+      fw.style.display = (n === 2) ? "block" : "none";
     }
     function go(n){
       setActive(n);
       if(n === 3){
-        // show itinerary after 4 seconds
         const btn = document.getElementById("itineraryBtn");
         btn.style.display = "none";
         setTimeout(() => btn.style.display = "block", 4000);
       }
-      if(n === 4){
-        seedLoveNotes();
+      if(n === 2){
+        startFireworks();
+        // a few hearts on yay page (not too many)
+        heartBurst(26);
       }
     }
 
-    // Auto advance Page 1 -> Page 2 after 5s
-    setTimeout(() => go(2), 5000);
-
-    // Page 2 NO sequence
-    const yes2 = document.getElementById("yes2");
-    const no2  = document.getElementById("no2");
+    // ---------- Page 1: No-click sequence with new additions ----------
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
     const promptText = document.getElementById("promptText");
     const promptImg  = document.getElementById("promptImg");
     const promptEmoji = document.getElementById("promptEmoji");
     const promptLine = document.getElementById("promptLine");
 
+    const overlay = document.getElementById("overlay");
+    const overlayImg = document.getElementById("overlayImg");
+
     let noCount = 0;
     let rotateIndex = 0;
+    let locked = false;
 
-    const firstSequence = [
+    // Your requested sequence:
+    // 1) Huh? + IMG_2534
+    // then:
+    // Can you please be? + IMG_2526
+    // Pleeeeaaseeee? + 🥺
+    // Russian + IMG_2527
+    // I cry + IMG_2528
+    // Wrong answer
+    // Mam... + IMG_2533
+    // (next) IMG_2535 only
+    // (then) IMG_2536 fullscreen for 2 seconds, then continue with previous:
+    // Ok, not funny haha anymore
+    // Please click yes
+    // then rotation (IMG_2530, Clic YES, IMG_2529, Wooow, Ok plz stop)
+
+    const baseSequence = [
+      { text: "Huh?", img: "IMG_2534.jpg" },
       { text: "Can you please be?", img: "IMG_2526.jpg" },
       { text: "Pleeeeaaseeee?", emoji: "🥺" },
       { text: "Ну пожаааалууууйстааааа", img: "IMG_2527.PNG" },
       { text: "I cry", img: "IMG_2528.PNG" },
       { text: "Wrong answer" },
-      { text: "Ok, not funny haha anymore" },
+      { text: "Mam, move your cursor to YES, then click on it!", img: "IMG_2533.jpg" },
+      { img: "IMG_2535.jpg" }, // image only
+      { fullscreenImg: "IMG_2536.jpg", duration: 2000, then: { text: "Ok, not funny haha anymore" } },
       { text: "Please click yes" },
     ];
 
@@ -592,17 +512,42 @@
         promptEmoji.style.display = "block";
       }
 
-      // micro feedback
       promptLine.animate(
         [{ transform:"translateY(0)" }, { transform:"translateY(-2px)" }, { transform:"translateY(0)" }],
         { duration: 160, easing:"ease-out" }
       );
     }
 
-    no2.addEventListener("click", () => {
+    function showOverlay(src, ms){
+      locked = true;
+      overlayImg.src = src;
+      overlay.style.display = "block";
+      setTimeout(() => {
+        overlay.style.display = "none";
+        locked = false;
+      }, ms);
+    }
+
+    noBtn.addEventListener("click", () => {
+      if(locked) return;
       noCount++;
-      if(noCount <= firstSequence.length){
-        renderPrompt(firstSequence[noCount - 1]);
+
+      if(noCount <= baseSequence.length){
+        const item = baseSequence[noCount - 1];
+
+        if(item.fullscreenImg){
+          // show fullscreen for 2 seconds
+          showOverlay(item.fullscreenImg, item.duration || 2000);
+
+          // after overlay hides, "go on to next options" automatically
+          setTimeout(() => {
+            if(item.then) renderPrompt(item.then);
+          }, (item.duration || 2000) + 10);
+
+          return;
+        }
+
+        renderPrompt(item);
       } else {
         const item = rotation[rotateIndex % rotation.length];
         rotateIndex++;
@@ -610,41 +555,95 @@
       }
     });
 
-    yes2.addEventListener("click", () => go(3));
-    document.getElementById("itineraryBtn").addEventListener("click", () => go(4));
-    document.getElementById("toMovieBtn").addEventListener("click", () => go(5));
-    document.getElementById("toCountdownBtn").addEventListener("click", () => go(6));
-    document.getElementById("restartBtn").addEventListener("click", () => go(2));
+    // YES -> YAAAAY page
+    yesBtn.addEventListener("click", () => {
+      go(2);
+    });
 
-    // Page 4: Love notes sprinkled
-    const loveNotes = document.getElementById("loveNotes");
-    const notes = [
-      "I love you", "I love you", "I love you",
-      "💗 I love you", "I love you so much", "psst… I love you",
-      "hey… I love you", "I love you"
-    ];
-    function seedLoveNotes(){
-      loveNotes.innerHTML = "";
-      const positions = [
-        [6, 10], [78, 12], [14, 62], [70, 70],
-        [44, 18], [40, 88], [8, 86], [82, 52]
-      ];
-      positions.forEach((pos, i) => {
-        const el = document.createElement("div");
-        el.className = "loveNote";
-        el.style.left = pos[0] + "%";
-        el.style.top  = pos[1] + "%";
-        el.style.setProperty("--r", (Math.random()*18 - 9).toFixed(1) + "deg");
-        el.textContent = notes[i % notes.length];
-        loveNotes.appendChild(el);
-      });
+    // ---------- Page 2: Fireworks + a few hearts ----------
+    const fwCanvas = document.getElementById("fw");
+    const fwCtx = fwCanvas.getContext("2d", { alpha: true });
+
+    let fwRunning = false;
+    let fwParticles = [];
+
+    function resizeFW(){
+      fwCanvas.width = window.innerWidth * devicePixelRatio;
+      fwCanvas.height = window.innerHeight * devicePixelRatio;
+      fwCtx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    }
+    window.addEventListener("resize", resizeFW, { passive:true });
+    resizeFW();
+
+    function spawnBurst(){
+      const x = 60 + Math.random() * (window.innerWidth - 120);
+      const y = 120 + Math.random() * (window.innerHeight * 0.35);
+      const count = 42; // light performance
+      for(let i=0;i<count;i++){
+        const a = Math.random() * Math.PI * 2;
+        const sp = 1.2 + Math.random() * 3.2;
+        fwParticles.push({
+          x, y,
+          vx: Math.cos(a) * sp,
+          vy: Math.sin(a) * sp,
+          life: 60 + Math.random()*40,
+          hue: Math.floor(Math.random()*360),
+          r: 1.2 + Math.random()*1.8
+        });
+      }
     }
 
-    // Hearts button
+    function stepFW(){
+      if(!fwRunning) return;
+
+      fwCtx.clearRect(0,0,window.innerWidth, window.innerHeight);
+
+      // occasional bursts
+      if(Math.random() < 0.06) spawnBurst();
+
+      fwParticles = fwParticles.filter(p => p.life > 0);
+      for(const p of fwParticles){
+        p.life -= 1;
+        p.vy += 0.02; // tiny gravity
+        p.x += p.vx;
+        p.y += p.vy;
+
+        fwCtx.beginPath();
+        fwCtx.fillStyle = `hsla(${p.hue}, 90%, 65%, ${Math.min(1, p.life/60)})`;
+        fwCtx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        fwCtx.fill();
+      }
+
+      requestAnimationFrame(stepFW);
+    }
+
+    function startFireworks(){
+      fwRunning = true;
+      fwParticles = [];
+      spawnBurst();
+      spawnBurst();
+      stepFW();
+    }
+    function stopFireworks(){
+      fwRunning = false;
+      fwParticles = [];
+      fwCtx.clearRect(0,0,window.innerWidth, window.innerHeight);
+    }
+
+    document.getElementById("yayNext").addEventListener("click", () => {
+      stopFireworks();
+      go(3);
+    });
+
+    // ---------- Invitation page -> itinerary ----------
+    document.getElementById("itineraryBtn").addEventListener("click", () => go(4));
+
+    // ---------- Hearts button (reduced so it doesn't lag) ----------
     const hearts = document.getElementById("hearts");
     const heartBtn = document.getElementById("heartBtn");
     const heartChars = ["💖","💗","💘","💕","💞","💓","💝"];
-    function heartBurst(count = 160){
+
+    function heartBurst(count = 70){
       hearts.style.display = "block";
       for(let i=0;i<count;i++){
         const h = document.createElement("div");
@@ -652,9 +651,9 @@
         h.textContent = heartChars[Math.floor(Math.random()*heartChars.length)];
         h.style.left = (Math.random()*100) + "vw";
         h.style.bottom = "-24px";
-        h.style.fontSize = (16 + Math.random()*18) + "px";
-        h.style.animationDuration = (2.6 + Math.random()*1.8) + "s";
-        h.style.animationDelay = (Math.random()*0.25) + "s";
+        h.style.fontSize = (18 + Math.random()*14) + "px";
+        h.style.animationDuration = (2.9 + Math.random()*1.6) + "s";
+        h.style.animationDelay = (Math.random()*0.22) + "s";
         hearts.appendChild(h);
         setTimeout(() => h.remove(), 5200);
       }
@@ -662,9 +661,16 @@
         if(!hearts.querySelector(".heart")) hearts.style.display = "none";
       }, 5600);
     }
-    heartBtn.addEventListener("click", () => heartBurst(180));
 
-    // Countdown to Feb 14th 7PM (local time)
+    heartBtn.addEventListener("click", () => heartBurst(70));
+
+    // ---------- Itinerary -> Poster (page 5) ----------
+    document.getElementById("toPoster").addEventListener("click", () => go(5));
+
+    // Poster page: tap poster to continue
+    document.getElementById("posterTap").addEventListener("click", () => go(6));
+
+    // ---------- Countdown ----------
     const dEl = document.getElementById("d");
     const hEl = document.getElementById("h");
     const mEl = document.getElementById("m");
@@ -699,7 +705,17 @@
     setInterval(tick, 250);
     tick();
 
-    // Initialize
+    document.getElementById("restartBtn").addEventListener("click", () => {
+      // reset prompt + counters
+      noCount = 0;
+      rotateIndex = 0;
+      promptText.textContent = "💭";
+      promptImg.style.display = "none";
+      promptEmoji.style.display = "none";
+      go(1);
+    });
+
+    // Start on Page 1
     setActive(1);
   </script>
 </body>
