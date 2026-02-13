@@ -3,262 +3,190 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0b0c10" />
+  <meta name="theme-color" content="#fff7fb" />
   <title>For Jalina 💗</title>
+
   <style>
     :root{
-      --dark-bg: #0b0c10;
-      --dark-card: rgba(20, 22, 30, 0.78);
-      --dark-text: rgba(255,255,255,.92);
-      --dark-muted: rgba(255,255,255,.70);
-
-      --light-bg1:#fff6fb;
-      --light-bg2:#f2fbff;
-      --light-card:#ffffffcc;
-      --light-text:#1f2430;
-      --light-muted:#5b6475;
-
-      --accent:#ff5aa5;
-      --accent2:#6c7cff;
-
-      --shadow: 0 18px 55px rgba(0,0,0,.28);
-      --radius: 22px;
-
       --safe-top: env(safe-area-inset-top);
       --safe-bottom: env(safe-area-inset-bottom);
       --safe-left: env(safe-area-inset-left);
       --safe-right: env(safe-area-inset-right);
+
+      --text:#1f2430;
+      --muted:#5b6475;
+      --accent:#ff5aa5;
+      --accent2:#6c7cff;
+
+      --btn-shadow: 0 14px 28px rgba(20,20,40,.12);
+      --btn-radius: 18px;
     }
 
     *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
-    html, body { height: 100%; }
+    html, body{ height:100%; }
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      -webkit-text-size-adjust: 100%;
-      overflow: hidden;
-      background: var(--dark-bg);
-      color: var(--dark-text);
+      -webkit-text-size-adjust:100%;
+      overflow:hidden;
+      color:var(--text);
+      background:#fff7fb;
     }
 
-    .app{
-      height:100%;
-      width:100%;
-      position:relative;
-      padding:
-        calc(18px + var(--safe-top))
-        calc(16px + var(--safe-right))
-        calc(18px + var(--safe-bottom))
-        calc(16px + var(--safe-left));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    /* Minimal subtle moving dark background for early pages */
-    .dark-anim{
-      position:fixed;
-      inset:-40px;
+    /* Fullscreen soft animated background */
+    .bg{
+      position:fixed; inset:-60px;
       background:
-        radial-gradient(900px 600px at 20% 10%, rgba(255,90,165,.16) 0%, transparent 62%),
-        radial-gradient(900px 600px at 80% 10%, rgba(108,124,255,.14) 0%, transparent 62%),
-        radial-gradient(900px 600px at 50% 95%, rgba(34,197,94,.08) 0%, transparent 62%),
-        linear-gradient(135deg, #0b0c10, #0d0f18);
-      filter: saturate(1.05);
-      animation: driftBG 10s ease-in-out infinite alternate;
+        radial-gradient(900px 600px at 20% 10%, rgba(255,90,165,.22) 0%, transparent 62%),
+        radial-gradient(900px 600px at 80% 10%, rgba(108,124,255,.18) 0%, transparent 62%),
+        radial-gradient(900px 600px at 50% 95%, rgba(34,197,94,.12) 0%, transparent 62%),
+        linear-gradient(135deg, #fff7fb, #f2fbff);
+      animation: drift 10s ease-in-out infinite alternate;
       transform: translateZ(0);
+      filter: saturate(1.05);
     }
-    @keyframes driftBG{
+    @keyframes drift{
       0%{ transform: scale(1) translate(0,0); }
-      100%{ transform: scale(1.04) translate(-10px, 8px); }
+      100%{ transform: scale(1.03) translate(-10px, 8px); }
     }
+
+    /* Subtle grain */
     .grain{
       position:fixed; inset:0;
       pointer-events:none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
       mix-blend-mode: overlay;
-      opacity:.25;
+      opacity:.14;
     }
 
-    /* Light jazzy background for later pages */
-    .light-bg{
-      position:fixed;
-      inset:-60px;
-      background:
-        radial-gradient(900px 600px at 20% 10%, #ffd7eb 0%, transparent 60%),
-        radial-gradient(900px 600px at 80% 10%, #d9e6ff 0%, transparent 60%),
-        radial-gradient(900px 600px at 50% 95%, #d7fff2 0%, transparent 60%),
-        linear-gradient(135deg, var(--light-bg1), var(--light-bg2));
-      opacity:0;
-      pointer-events:none;
-      transition: opacity .6s ease;
-    }
-    .light-on .light-bg{ opacity:1; }
-    .light-on .dark-anim{ opacity:.20; }
-    .light-on .grain{ opacity:.16; }
-
-    .card{
-      width: min(430px, 100%);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,.10);
-      overflow:hidden;
+    /* App layout (iPhone safe area) */
+    .app{
       position:relative;
-      transform: translateZ(0);
-    }
-    .card.dark{
-      background: rgba(40,42,52,.70);
-      backdrop-filter: blur(12px);
-    }
-    .card.light{
-      background: var(--light-card);
-      border: 1px solid rgba(120,130,160,.18);
-      backdrop-filter: blur(10px);
-      color: var(--light-text);
+      height:100%;
+      padding:
+        calc(18px + var(--safe-top))
+        calc(18px + var(--safe-right))
+        calc(18px + var(--safe-bottom))
+        calc(18px + var(--safe-left));
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
     .page{
       display:none;
-      padding: 22px 18px;
-      min-height: 520px;
+      width: min(520px, 100%);
+      min-height: 100%;
+      padding: 10px 0;
     }
     .page.active{ display:block; }
 
-    h1,h2{ margin:0 0 12px; letter-spacing:.2px; }
-    p{ margin:0; line-height:1.5; }
+    /* Typography */
+    .kicker{
+      font-weight: 900;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: rgba(31,36,48,.55);
+      margin-bottom: 10px;
+    }
+    h1,h2{
+      margin:0 0 10px;
+      line-height:1.05;
+      letter-spacing:.2px;
+    }
+    h1{ font-size: 34px; font-weight: 1000; }
+    h2{ font-size: 26px; font-weight: 1000; }
+    p{
+      margin:0;
+      font-size: 16px;
+      line-height:1.55;
+      color: var(--muted);
+    }
 
+    /* Layout helpers */
     .center{
+      min-height: calc(100vh - (18px + var(--safe-top)) - (18px + var(--safe-bottom)));
       display:flex;
       flex-direction:column;
       justify-content:center;
-      align-items:center;
       gap:14px;
-      text-align:center;
-      min-height: 520px;
-      padding: 10px 2px;
     }
 
-    /* Page 1 warning */
-    .warningBox{
-      background: rgba(110,110,110,.55);
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 18px;
-      padding: 18px 16px;
-      width: 100%;
-      color: white;
-      box-shadow: 0 18px 40px rgba(0,0,0,.25);
-    }
-    .warningBox h2{
-      font-size: 22px;
-      font-weight: 800;
-    }
-    .tiny{ font-size: 13px; color: rgba(255,255,255,.78); }
-
-    /* Buttons (iPhone-friendly tap targets) */
+    /* Buttons (tap-friendly) */
     .row{
       display:flex;
       gap:12px;
-      width:100%;
       margin-top: 14px;
+      width:100%;
     }
     button{
-      flex:1;
       border:0;
-      border-radius: 16px;
+      border-radius: var(--btn-radius);
       padding: 14px 14px;
-      font-size: 17px;         /* prevents iOS zoom */
-      font-weight: 800;
+      font-size: 17px; /* prevents iOS zoom */
+      font-weight: 950;
       cursor:pointer;
-      min-height: 52px;
-      transition: transform .08s ease, filter .2s ease, box-shadow .2s ease;
+      min-height: 54px;
+      box-shadow: var(--btn-shadow);
+      transition: transform .08s ease, filter .2s ease;
       user-select:none;
     }
     button:active{ transform: translateY(1px) scale(.99); }
-
-    .btnYes{
+    .yes{
+      flex:1;
+      color:white;
       background: linear-gradient(135deg, #34d399, #22c55e);
-      color:white;
-      box-shadow: 0 14px 28px rgba(34,197,94,.25);
     }
-    .btnNo{
-      background: rgba(255,255,255,.10);
-      border: 1px solid rgba(255,255,255,.18);
-      color: rgba(255,255,255,.92);
-      box-shadow: 0 14px 28px rgba(0,0,0,.20);
+    .no{
+      flex:1;
+      color:#2d3341;
+      background: rgba(255,255,255,.75);
+      backdrop-filter: blur(8px);
     }
-
-    .btnPrimary{
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color:white;
-      box-shadow: 0 14px 28px rgba(108,124,255,.20);
-    }
-    .hidden{ display:none !important; }
-
-    /* Page 2 prompt area */
-    .prompt{
-      margin-top: 16px;
+    .primary{
       width:100%;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 18px;
-      padding: 14px 14px;
+      color:white;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+    }
+
+    /* Prompt area (no box) */
+    .promptLine{
       display:flex;
       align-items:center;
       gap:12px;
-      min-height: 92px;
+      margin-top: 8px;
+      min-height: 110px;
     }
     .promptText{
-      text-align:left;
-      flex:1;
-      font-size: 16px;
-      color: rgba(255,255,255,.88);
-    }
-    .promptImg{
-      width: 78px;
-      height: 78px;
-      border-radius: 16px;
-      object-fit: cover;
-      border: 1px solid rgba(255,255,255,.16);
-      box-shadow: 0 14px 24px rgba(0,0,0,.22);
-      display:none;
-    }
-    .emojiBig{
-      font-size: 42px;
-      line-height: 1;
-      display:none;
-      width: 78px;
-      text-align:center;
-    }
-
-    /* Page 3 invitation image section */
-    .inviteWrap{
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-      min-height: 520px;
-    }
-    .inviteTop{
-      padding: 6px 4px 0;
-      z-index:2;
-    }
-    .inviteTop h2{
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 900;
-      margin-bottom:10px;
+      color: rgba(31,36,48,.85);
     }
-    .inviteTop p{
-      font-size: 16px;
-      color: var(--light-muted);
+    .promptMedia{
+      margin-left:auto;
+      width: 110px;
+      height: 110px;
+      border-radius: 22px;
+      object-fit: cover;
+      box-shadow: 0 18px 40px rgba(20,20,40,.14);
+      display:none;
+    }
+    .promptEmoji{
+      margin-left:auto;
+      font-size: 54px;
+      display:none;
     }
 
+    /* Image sections */
     .heroImgWrap{
-      position:relative;
-      flex:1;
-      border-radius: 20px;
+      margin-top: 14px;
+      width:100%;
+      border-radius: 28px;
       overflow:hidden;
-      border: 1px solid rgba(120,130,160,.18);
-      box-shadow: 0 18px 40px rgba(20,20,40,.12);
-      min-height: 240px;
+      box-shadow: 0 22px 60px rgba(20,20,40,.14);
+      min-height: 260px;
+      position:relative;
     }
     .heroImg{
       position:absolute;
@@ -266,65 +194,30 @@
       width:100%;
       height:100%;
       object-fit: cover;
-      transform: scale(1.02);
+      transform: scale(1.03);
     }
-    .heroOverlay{
+    .softOverlay{
       position:absolute;
       inset:0;
-      background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.20), rgba(0,0,0,.05));
+      background: radial-gradient(800px 420px at 50% 12%, rgba(255,255,255,.65), transparent 60%);
+      pointer-events:none;
       mix-blend-mode: screen;
-      pointer-events:none;
-    }
-    .heroBlurBg{
-      position:absolute;
-      inset:-18px;
-      background-image: url("999.jpeg");
-      background-size: cover;
-      background-position: center;
-      filter: blur(22px) saturate(1.2);
-      opacity:.22;
-      transform: scale(1.15);
-      pointer-events:none;
     }
 
-    /* Page 4 jazzy layout + "I love you" notes */
+    /* Love notes (page 4) */
     .loveNotes{
-      position: absolute;
-      inset: 0;
+      position:fixed;
+      inset:0;
       pointer-events:none;
-      opacity: .95;
+      opacity:.85;
     }
     .loveNote{
       position:absolute;
       font-size: 12px;
-      font-weight: 900;
+      font-weight: 1000;
       color: rgba(255,90,165,.85);
       transform: rotate(var(--r, -8deg));
-      text-shadow: 0 8px 18px rgba(0,0,0,.10);
-    }
-
-    .listBox{
-      background:#ffffffc8;
-      border:1px solid rgba(120,130,160,.2);
-      border-radius:22px;
-      padding:16px 14px;
-      box-shadow: 0 16px 30px rgba(20,20,40,.08);
-    }
-    .listBox ul{
-      margin: 10px 0 0 18px;
-      padding:0;
-      color: var(--light-text);
-      font-size: 15px;
-      line-height: 1.55;
-    }
-
-    .heartBtn{
-      width: 54px;
-      flex: 0 0 54px;
-      background: #fff;
-      border:1px solid rgba(120,130,160,.2);
-      box-shadow: 0 14px 26px rgba(20,20,40,.10);
-      font-size: 24px;
+      text-shadow: 0 10px 20px rgba(20,20,40,.10);
     }
 
     /* Hearts overlay */
@@ -337,10 +230,10 @@
     }
     .heart{
       position:absolute;
-      font-size: 22px;
+      font-size: 24px;
       animation: floatUp 3.6s ease-in forwards;
       opacity: .95;
-      filter: drop-shadow(0 10px 10px rgba(0,0,0,.14));
+      filter: drop-shadow(0 10px 10px rgba(0,0,0,.12));
     }
     @keyframes floatUp{
       0%{ transform: translateY(20px) scale(.9); opacity:0; }
@@ -348,21 +241,16 @@
       100%{ transform: translateY(-110vh) scale(1.2); opacity:0; }
     }
 
-    /* Page 5: Movie reveal poster */
-    .posterWrap{
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-      min-height:520px;
-    }
+    /* Movie poster (page 5) — no box, still poster-like */
     .poster{
+      margin-top: 12px;
       position:relative;
-      border-radius: 26px;
+      width:100%;
+      min-height: 360px;
+      border-radius: 34px;
       overflow:hidden;
-      border: 1px solid rgba(120,130,160,.18);
-      box-shadow: 0 18px 40px rgba(20,20,40,.12);
-      min-height: 330px;
-      background: #111;
+      box-shadow: 0 26px 70px rgba(20,20,40,.16);
+      background:#111;
     }
     .posterBg{
       position:absolute;
@@ -370,25 +258,18 @@
       background-image: url("999.jpeg");
       background-size: cover;
       background-position: center;
-      filter: blur(14px) saturate(1.2) contrast(1.05);
-      opacity:.55;
+      filter: blur(12px) saturate(1.25) contrast(1.05);
+      opacity:.60;
       transform: scale(1.12);
     }
     .posterFilm{
       position:absolute;
       inset:0;
       background:
-        radial-gradient(900px 500px at 15% 20%, rgba(255,90,165,.40) 0%, transparent 60%),
-        radial-gradient(900px 500px at 85% 10%, rgba(108,124,255,.35) 0%, transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.15), rgba(0,0,0,.55));
+        radial-gradient(900px 500px at 15% 20%, rgba(255,90,165,.42) 0%, transparent 60%),
+        radial-gradient(900px 500px at 85% 10%, rgba(108,124,255,.38) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.60), rgba(0,0,0,.18), rgba(0,0,0,.62));
       mix-blend-mode: screen;
-    }
-    .posterGrain{
-      position:absolute; inset:0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
-      opacity:.22;
-      mix-blend-mode: overlay;
-      pointer-events:none;
     }
     .posterContent{
       position:absolute;
@@ -399,30 +280,28 @@
       justify-content:space-between;
       color: rgba(255,255,255,.92);
     }
-    .posterTopLine{
+    .posterTop{
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      gap:12px;
-      font-weight:900;
-      letter-spacing: 2.2px;
+      gap:10px;
+      font-weight: 1000;
       text-transform: uppercase;
       font-size: 11px;
-      opacity:.9;
+      letter-spacing: 2.2px;
+      opacity:.95;
     }
-    .badge{
+    .pill{
       padding: 8px 10px;
       border-radius: 999px;
       background: rgba(255,255,255,.12);
       border: 1px solid rgba(255,255,255,.18);
-      box-shadow: 0 12px 24px rgba(0,0,0,.20);
-      letter-spacing: .9px;
+      box-shadow: 0 14px 28px rgba(0,0,0,.18);
       font-size: 10px;
-      font-weight: 950;
+      letter-spacing: 1px;
     }
     .posterTitle{
       margin-top: 12px;
-      font-size: 44px;
+      font-size: 46px;
       font-weight: 1000;
       line-height: .95;
       letter-spacing: 1.2px;
@@ -431,65 +310,58 @@
     .posterTitle span{
       display:block;
       font-size: 18px;
-      font-weight: 850;
+      font-weight: 900;
       letter-spacing: 3px;
       opacity:.92;
       margin-bottom: 8px;
     }
-    .posterTagline{
-      margin-top: 10px;
+    .posterTag{
       font-size: 14px;
-      color: rgba(255,255,255,.80);
+      color: rgba(255,255,255,.82);
       line-height: 1.45;
-      max-width: 300px;
+      max-width: 320px;
+      margin-top: 8px;
     }
     .posterBottom{
       display:flex;
-      align-items:flex-end;
       justify-content:space-between;
+      align-items:flex-end;
       gap:12px;
-    }
-    .credits{
       font-size: 11px;
       letter-spacing: 1.8px;
       text-transform: uppercase;
       color: rgba(255,255,255,.75);
       line-height: 1.45;
     }
-    .rating{
-      text-align:right;
-      font-weight: 950;
-      font-size: 12px;
-      color: rgba(255,255,255,.86);
-    }
-    .stars{ letter-spacing: 2px; }
+    .stars{ letter-spacing:2px; text-align:right; font-weight:1000; }
 
-    /* Page 6 countdown */
+    /* Countdown (page 6) */
     .countdown{
-      margin-top: 12px;
+      margin-top: 14px;
       display:grid;
       grid-template-columns: repeat(4, 1fr);
       gap:10px;
       width:100%;
     }
-    .cdBox{
-      background: #ffffffd6;
-      border:1px solid rgba(120,130,160,.2);
-      border-radius: 18px;
+    .cd{
+      border-radius: 20px;
       padding: 12px 10px;
       text-align:center;
-      box-shadow: 0 14px 26px rgba(20,20,40,.08);
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 40px rgba(20,20,40,.10);
     }
     .cdNum{
-      font-weight: 950;
+      font-weight: 1000;
       font-size: 22px;
       letter-spacing:.4px;
+      color: rgba(31,36,48,.90);
     }
     .cdLbl{
       font-size: 11px;
-      color: var(--light-muted);
+      color: rgba(31,36,48,.55);
       margin-top: 2px;
-      font-weight: 800;
+      font-weight: 950;
       text-transform: uppercase;
       letter-spacing:.8px;
     }
@@ -497,187 +369,157 @@
 </head>
 
 <body>
-  <div class="dark-anim"></div>
-  <div class="light-bg"></div>
+  <div class="bg"></div>
   <div class="grain"></div>
 
   <div class="hearts" id="hearts"></div>
+  <div class="loveNotes" id="loveNotes"></div>
 
   <div class="app">
-    <div class="card dark" id="card">
-      <!-- PAGE 1 -->
-      <section class="page active" id="p1">
-        <div class="center">
-          <div class="warningBox">
-            <h2>Please have your sound on</h2>
-            <div class="tiny">This message will disappear in 5 seconds.</div>
-          </div>
+    <!-- PAGE 1 -->
+    <section class="page active" id="p1">
+      <div class="center">
+        <div class="kicker">one tiny thing</div>
+        <h2>Please have your sound on</h2>
+        <p>This message will disappear in 5 seconds.</p>
+      </div>
+    </section>
+
+    <!-- PAGE 2 -->
+    <section class="page" id="p2">
+      <div class="center">
+        <div class="kicker">question</div>
+        <h1>Are you available this Saturday at 7pm?</h1>
+        <p>(Choose carefully 😇)</p>
+
+        <div class="row">
+          <button class="yes" id="yes2">Yes</button>
+          <button class="no" id="no2">No</button>
         </div>
-      </section>
 
-      <!-- PAGE 2 -->
-      <section class="page" id="p2">
-        <div class="center" style="gap:10px;">
-          <h2 style="font-size:22px;font-weight:950;margin-bottom:4px;">Are you available this Saturday at 7pm?</h2>
-          <div style="color:var(--dark-muted);font-size:14px;">(Choose carefully 😇)</div>
+        <div class="promptLine" id="promptLine">
+          <div class="promptText" id="promptText">💭</div>
+          <img class="promptMedia" id="promptImg" alt="cute reaction" />
+          <div class="promptEmoji" id="promptEmoji" aria-hidden="true">🥺</div>
+        </div>
+      </div>
+    </section>
 
-          <div class="row">
-            <button class="btnYes" id="yes2">Yes</button>
-            <button class="btnNo" id="no2">No</button>
-          </div>
+    <!-- PAGE 3 -->
+    <section class="page" id="p3">
+      <div class="center" style="justify-content:flex-start; padding-top: 18px;">
+        <div class="kicker">invitation</div>
+        <h2>My dear Jalina,</h2>
+        <p>I would like to invite you to a movie date this Saturday, at <strong>8pm</strong>, your time.</p>
 
-          <div class="prompt" id="prompt">
-            <div style="min-width:0;flex:1;">
-              <div class="promptText" id="promptText">💭</div>
+        <div class="heroImgWrap" aria-label="movie vibe image">
+          <img class="heroImg" src="999.jpeg" alt="movie vibe" />
+          <div class="softOverlay"></div>
+        </div>
+
+        <div class="row" style="margin-top:auto;">
+          <button class="primary" id="itineraryBtn" style="display:none;">Itinerary of the night</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 4 -->
+    <section class="page" id="p4">
+      <div class="center" style="justify-content:flex-start; padding-top: 18px;">
+        <div class="kicker">itinerary</div>
+        <h2>Saturday Night Plan 💗</h2>
+        <p>jazzy • cozy • valentine energy</p>
+
+        <p style="margin-top: 10px; color: rgba(31,36,48,.75); font-weight: 900;">
+          What we’ll do / What we’ll need:
+        </p>
+        <p style="margin-top: 10px;">
+          • At 7 we will go to the store to grab snacks<br>
+          • She will need her laptop<br>
+          • She will need her smile<br>
+          • You<br>
+          • Blanket<br>
+          • All the jelly cats<br>
+          • Sasha<br>
+          • You
+        </p>
+
+        <div class="row" style="margin-top: 14px;">
+          <button class="no" id="heartBtn" style="flex:0 0 64px; font-size:26px;">💖</button>
+          <button class="primary" id="toMovieBtn">Next</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 5 -->
+    <section class="page" id="p5">
+      <div class="center" style="justify-content:flex-start; padding-top: 18px;">
+        <div class="kicker">movie reveal</div>
+        <h2>Tonight’s movie is…</h2>
+
+        <div class="poster" role="img" aria-label="About Time movie poster (stylized)">
+          <div class="posterBg"></div>
+          <div class="posterFilm"></div>
+
+          <div class="posterContent">
+            <div>
+              <div class="posterTop">
+                <div class="pill">Tonight • 8 PM</div>
+                <div class="pill">For Jalina 💗</div>
+              </div>
+
+              <div class="posterTitle">
+                <span>ABOUT</span>
+                TIME
+              </div>
+
+              <div class="posterTag">
+                Cozy romance. Heartwarming. Perfect for us.
+              </div>
             </div>
-            <img class="promptImg" id="promptImg" alt="cute reaction" />
-            <div class="emojiBig" id="promptEmoji" aria-hidden="true">🥺</div>
-          </div>
-        </div>
-      </section>
 
-      <!-- PAGE 3 -->
-      <section class="page" id="p3">
-        <div class="inviteWrap">
-          <div class="heroBlurBg" aria-hidden="true"></div>
-
-          <div class="inviteTop">
-            <h2>💌 Invitation</h2>
-            <p>
-              <strong>My dear Jalina,</strong><br><br>
-              I would like to invite you to a movie date this Saturday, at <strong>8pm</strong>, your time.
-            </p>
-          </div>
-
-          <div class="heroImgWrap">
-            <img class="heroImg" src="999.jpeg" alt="movie vibe" />
-            <div class="heroOverlay"></div>
-          </div>
-
-          <div class="row" style="margin-top: 6px;">
-            <button class="btnPrimary hidden" id="itineraryBtn">Itinerary of the night</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- PAGE 4 -->
-      <section class="page" id="p4">
-        <div class="loveNotes" id="loveNotes"></div>
-
-        <div style="display:flex; flex-direction:column; gap:14px; min-height:520px;">
-          <div>
-            <h2 style="margin:0 0 6px; font-size:26px; font-weight:980;">Saturday Night Plan 💗</h2>
-            <div style="color:var(--light-muted);font-size:14px;">jazzy • cozy • valentine energy</div>
-          </div>
-
-          <div class="listBox">
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
-              <div style="font-weight:950; font-size:16px;">What we’ll do / What we’ll need</div>
-              <button class="heartBtn" id="heartBtn" title="hearts">💖</button>
-            </div>
-
-            <ul>
-              <li>At 7 we will go to the store to grab snacks</li>
-              <li>She will need her laptop</li>
-              <li>She will need her smile</li>
-              <li>You</li>
-              <li>Blanket</li>
-              <li>All the jelly cats</li>
-              <li>Sasha</li>
-              <li>You</li>
-            </ul>
-          </div>
-
-          <div class="row" style="margin-top:auto;">
-            <button class="btnPrimary" id="toMovieBtn">Next</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- PAGE 5: MOVIE REVEAL -->
-      <section class="page" id="p5">
-        <div class="posterWrap">
-          <div style="text-align:center; margin-top: 6px;">
-            <h2 style="margin:0 0 6px; font-size:26px; font-weight:980;">🎬 Movie Reveal</h2>
-            <div style="color:var(--light-muted);font-size:14px;">Tonight’s pick is officially…</div>
-          </div>
-
-          <div class="poster" role="img" aria-label="About Time movie poster (stylized)">
-            <div class="posterBg"></div>
-            <div class="posterFilm"></div>
-            <div class="posterGrain"></div>
-
-            <div class="posterContent">
+            <div class="posterBottom">
               <div>
-                <div class="posterTopLine">
-                  <div class="badge">Tonight • 8 PM</div>
-                  <div class="badge">For Jalina 💗</div>
-                </div>
-
-                <div class="posterTitle">
-                  <span>ABOUT</span>
-                  TIME
-                </div>
-
-                <div class="posterTagline">
-                  A cozy romance with the kind of feeling that stays with you.
-                  (Also: perfect for us.)
-                </div>
+                A MOVIE DATE PRESENTATION<br>
+                DIRECTED BY: YOUR FAVORITE PERSON
               </div>
-
-              <div class="posterBottom">
-                <div class="credits">
-                  A MOVIE DATE PRESENTATION<br>
-                  DIRECTED BY: YOUR FAVORITE PERSON
-                </div>
-                <div class="rating">
-                  <div class="stars">★★★★★</div>
-                  <div style="opacity:.85;">Certified Cozy</div>
-                </div>
+              <div class="stars">
+                ★★★★★<br>
+                <span style="opacity:.85;">Certified Cozy</span>
               </div>
             </div>
           </div>
-
-          <div class="row" style="margin-top:auto;">
-            <button class="btnPrimary" id="toCountdownBtn">Next</button>
-          </div>
         </div>
-      </section>
 
-      <!-- PAGE 6: COUNTDOWN -->
-      <section class="page" id="p6">
-        <div style="display:flex; flex-direction:column; gap:14px; min-height:520px;">
-          <div style="text-align:center; margin-top: 10px;">
-            <h2 style="margin:0 0 8px; font-size:28px; font-weight:980;">See you tomorrow at 7 💘</h2>
-            <div style="color:var(--light-muted);font-size:14px;">Countdown to Saturday, Feb 14th, 7:00 PM</div>
-          </div>
-
-          <div class="countdown" aria-live="polite">
-            <div class="cdBox"><div class="cdNum" id="d">—</div><div class="cdLbl">Days</div></div>
-            <div class="cdBox"><div class="cdNum" id="h">—</div><div class="cdLbl">Hours</div></div>
-            <div class="cdBox"><div class="cdNum" id="m">—</div><div class="cdLbl">Min</div></div>
-            <div class="cdBox"><div class="cdNum" id="s">—</div><div class="cdLbl">Sec</div></div>
-          </div>
-
-          <div class="listBox" style="margin-top:10px;">
-            <div style="font-weight:900;">💡 Little reminder</div>
-            <div style="margin-top:6px; color:var(--light-muted); font-size:14px; line-height:1.5;">
-              You + me + snacks + About Time = perfect.
-            </div>
-          </div>
-
-          <div class="row" style="margin-top:auto;">
-            <button class="btnPrimary" id="restartBtn">Back to start</button>
-          </div>
+        <div class="row" style="margin-top:auto;">
+          <button class="primary" id="toCountdownBtn">Next</button>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <!-- PAGE 6 -->
+    <section class="page" id="p6">
+      <div class="center">
+        <div class="kicker">final page</div>
+        <h2>See you tomorrow at 7 💘</h2>
+        <p>Countdown to Saturday, Feb 14th, 7:00 PM</p>
+
+        <div class="countdown" aria-live="polite">
+          <div class="cd"><div class="cdNum" id="d">—</div><div class="cdLbl">Days</div></div>
+          <div class="cd"><div class="cdNum" id="h">—</div><div class="cdLbl">Hours</div></div>
+          <div class="cd"><div class="cdNum" id="m">—</div><div class="cdLbl">Min</div></div>
+          <div class="cd"><div class="cdNum" id="s">—</div><div class="cdLbl">Sec</div></div>
+        </div>
+
+        <div class="row" style="margin-top: 18px;">
+          <button class="primary" id="restartBtn">Back to start</button>
+        </div>
+      </div>
+    </section>
   </div>
 
   <script>
-    // ---------- Page system ----------
-    const body = document.body;
-    const card = document.getElementById("card");
+    // Pages
     const pages = {
       1: document.getElementById("p1"),
       2: document.getElementById("p2"),
@@ -686,48 +528,34 @@
       5: document.getElementById("p5"),
       6: document.getElementById("p6"),
     };
-
     function setActive(n){
       Object.values(pages).forEach(p => p.classList.remove("active"));
       pages[n].classList.add("active");
       window.scrollTo({ top: 0, behavior: "instant" });
     }
-
-    function setThemeLight(isLight){
-      if(isLight){
-        body.classList.add("light-on");
-        card.classList.remove("dark");
-        card.classList.add("light");
-      }else{
-        body.classList.remove("light-on");
-        card.classList.add("dark");
-        card.classList.remove("light");
-      }
-    }
-
     function go(n){
-      // Pages 1-2 minimal/dark; pages 3-6 jazzy/light
-      setThemeLight(n >= 3);
       setActive(n);
-
       if(n === 3){
-        // show itinerary button after 4 seconds
+        // show itinerary after 4 seconds
         const btn = document.getElementById("itineraryBtn");
-        btn.classList.add("hidden");
-        setTimeout(() => btn.classList.remove("hidden"), 4000);
+        btn.style.display = "none";
+        setTimeout(() => btn.style.display = "block", 4000);
+      }
+      if(n === 4){
+        seedLoveNotes();
       }
     }
 
-    // Auto-advance from page 1 to page 2 after 5 seconds
+    // Auto advance Page 1 -> Page 2 after 5s
     setTimeout(() => go(2), 5000);
 
-    // ---------- Page 2 (No button sequence) ----------
+    // Page 2 NO sequence
     const yes2 = document.getElementById("yes2");
     const no2  = document.getElementById("no2");
     const promptText = document.getElementById("promptText");
     const promptImg  = document.getElementById("promptImg");
     const promptEmoji = document.getElementById("promptEmoji");
-    const promptBox = document.getElementById("prompt");
+    const promptLine = document.getElementById("promptLine");
 
     let noCount = 0;
     let rotateIndex = 0;
@@ -743,9 +571,9 @@
     ];
 
     const rotation = [
-      { img: "IMG_2530.JPG" },         // image only
+      { img: "IMG_2530.JPG" },
       { text: "Clic YES" },
-      { img: "IMG_2529.WEBP" },        // image only
+      { img: "IMG_2529.WEBP" },
       { text: "Wooow" },
       { text: "Ok plz stop" },
     ];
@@ -753,7 +581,6 @@
     function renderPrompt(item){
       promptImg.style.display = "none";
       promptEmoji.style.display = "none";
-
       promptText.textContent = item.text || "";
 
       if(item.img){
@@ -765,10 +592,10 @@
         promptEmoji.style.display = "block";
       }
 
-      // Bounce feedback
-      promptBox.animate(
-        [{ transform:"scale(1)" }, { transform:"scale(1.02)" }, { transform:"scale(1)" }],
-        { duration: 180, easing:"ease-out" }
+      // micro feedback
+      promptLine.animate(
+        [{ transform:"translateY(0)" }, { transform:"translateY(-2px)" }, { transform:"translateY(0)" }],
+        { duration: 160, easing:"ease-out" }
       );
     }
 
@@ -789,18 +616,18 @@
     document.getElementById("toCountdownBtn").addEventListener("click", () => go(6));
     document.getElementById("restartBtn").addEventListener("click", () => go(2));
 
-    // ---------- Page 4: "I love you" notes + heart explosion ----------
+    // Page 4: Love notes sprinkled
     const loveNotes = document.getElementById("loveNotes");
     const notes = [
       "I love you", "I love you", "I love you",
-      "💗 I love you", "I love you so much", "I love you",
-      "psst… I love you", "hey… I love you"
+      "💗 I love you", "I love you so much", "psst… I love you",
+      "hey… I love you", "I love you"
     ];
-
     function seedLoveNotes(){
       loveNotes.innerHTML = "";
       const positions = [
-        [6, 10], [78, 12], [14, 62], [70, 70], [44, 18], [40, 88], [8, 86], [82, 52]
+        [6, 10], [78, 12], [14, 62], [70, 70],
+        [44, 18], [40, 88], [8, 86], [82, 52]
       ];
       positions.forEach((pos, i) => {
         const el = document.createElement("div");
@@ -812,13 +639,12 @@
         loveNotes.appendChild(el);
       });
     }
-    seedLoveNotes();
 
+    // Hearts button
     const hearts = document.getElementById("hearts");
     const heartBtn = document.getElementById("heartBtn");
     const heartChars = ["💖","💗","💘","💕","💞","💓","💝"];
-
-    function heartBurst(count = 140){
+    function heartBurst(count = 160){
       hearts.style.display = "block";
       for(let i=0;i<count;i++){
         const h = document.createElement("div");
@@ -836,9 +662,9 @@
         if(!hearts.querySelector(".heart")) hearts.style.display = "none";
       }, 5600);
     }
-    heartBtn.addEventListener("click", () => heartBurst(160));
+    heartBtn.addEventListener("click", () => heartBurst(180));
 
-    // ---------- Page 6 countdown to Feb 14th 7PM (local device time) ----------
+    // Countdown to Feb 14th 7PM (local time)
     const dEl = document.getElementById("d");
     const hEl = document.getElementById("h");
     const mEl = document.getElementById("m");
@@ -847,9 +673,7 @@
     function getTargetDate(){
       const now = new Date();
       let year = now.getFullYear();
-
-      // Feb = month 1 (0-indexed). 7PM = 19:00
-      let target = new Date(year, 1, 14, 19, 0, 0);
+      let target = new Date(year, 1, 14, 19, 0, 0); // Feb 14, 7PM
       if(target.getTime() < now.getTime()){
         year += 1;
         target = new Date(year, 1, 14, 19, 0, 0);
@@ -861,7 +685,6 @@
     function tick(){
       const now = new Date();
       let diff = Math.max(0, target - now);
-
       const sec = Math.floor(diff / 1000);
       const days = Math.floor(sec / 86400);
       const hrs  = Math.floor((sec % 86400) / 3600);
@@ -876,8 +699,7 @@
     setInterval(tick, 250);
     tick();
 
-    // Start on page 1 with dark theme
-    setThemeLight(false);
+    // Initialize
     setActive(1);
   </script>
 </body>
