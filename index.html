@@ -41,7 +41,6 @@
       color: var(--dark-text);
     }
 
-    /* Fullscreen app wrapper optimized for iPhone */
     .app{
       height:100%;
       width:100%;
@@ -56,14 +55,14 @@
       justify-content:center;
     }
 
-    /* Subtle moving dark background */
+    /* Minimal subtle moving dark background for early pages */
     .dark-anim{
       position:fixed;
       inset:-40px;
       background:
-        radial-gradient(900px 600px at 20% 10%, rgba(255,90,165,.18) 0%, transparent 62%),
-        radial-gradient(900px 600px at 80% 10%, rgba(108,124,255,.16) 0%, transparent 62%),
-        radial-gradient(900px 600px at 50% 95%, rgba(34,197,94,.10) 0%, transparent 62%),
+        radial-gradient(900px 600px at 20% 10%, rgba(255,90,165,.16) 0%, transparent 62%),
+        radial-gradient(900px 600px at 80% 10%, rgba(108,124,255,.14) 0%, transparent 62%),
+        radial-gradient(900px 600px at 50% 95%, rgba(34,197,94,.08) 0%, transparent 62%),
         linear-gradient(135deg, #0b0c10, #0d0f18);
       filter: saturate(1.05);
       animation: driftBG 10s ease-in-out infinite alternate;
@@ -170,7 +169,7 @@
       font-size: 17px;         /* prevents iOS zoom */
       font-weight: 800;
       cursor:pointer;
-      min-height: 52px;        /* good tap target */
+      min-height: 52px;
       transition: transform .08s ease, filter .2s ease, box-shadow .2s ease;
       user-select:none;
     }
@@ -187,6 +186,13 @@
       color: rgba(255,255,255,.92);
       box-shadow: 0 14px 28px rgba(0,0,0,.20);
     }
+
+    .btnPrimary{
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color:white;
+      box-shadow: 0 14px 28px rgba(108,124,255,.20);
+    }
+    .hidden{ display:none !important; }
 
     /* Page 2 prompt area */
     .prompt{
@@ -207,11 +213,6 @@
       font-size: 16px;
       color: rgba(255,255,255,.88);
     }
-    .promptSmall{
-      font-size: 13px;
-      color: rgba(255,255,255,.70);
-      margin-top: 2px;
-    }
     .promptImg{
       width: 78px;
       height: 78px;
@@ -229,7 +230,7 @@
       text-align:center;
     }
 
-    /* Page 3 image section */
+    /* Page 3 invitation image section */
     .inviteWrap{
       display:flex;
       flex-direction:column;
@@ -286,20 +287,7 @@
       pointer-events:none;
     }
 
-    .ctaRow{
-      display:flex;
-      gap:12px;
-      width:100%;
-      margin-top: 8px;
-    }
-    .btnPrimary{
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color:white;
-      box-shadow: 0 14px 28px rgba(108,124,255,.20);
-    }
-    .hidden{ display:none !important; }
-
-    /* Page 4 jazzy layout (based on earlier style) */
+    /* Page 4 jazzy layout + "I love you" notes */
     .loveNotes{
       position: absolute;
       inset: 0;
@@ -360,7 +348,123 @@
       100%{ transform: translateY(-110vh) scale(1.2); opacity:0; }
     }
 
-    /* Page 5 countdown */
+    /* Page 5: Movie reveal poster */
+    .posterWrap{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      min-height:520px;
+    }
+    .poster{
+      position:relative;
+      border-radius: 26px;
+      overflow:hidden;
+      border: 1px solid rgba(120,130,160,.18);
+      box-shadow: 0 18px 40px rgba(20,20,40,.12);
+      min-height: 330px;
+      background: #111;
+    }
+    .posterBg{
+      position:absolute;
+      inset:-18px;
+      background-image: url("999.jpeg");
+      background-size: cover;
+      background-position: center;
+      filter: blur(14px) saturate(1.2) contrast(1.05);
+      opacity:.55;
+      transform: scale(1.12);
+    }
+    .posterFilm{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 500px at 15% 20%, rgba(255,90,165,.40) 0%, transparent 60%),
+        radial-gradient(900px 500px at 85% 10%, rgba(108,124,255,.35) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.15), rgba(0,0,0,.55));
+      mix-blend-mode: screen;
+    }
+    .posterGrain{
+      position:absolute; inset:0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      opacity:.22;
+      mix-blend-mode: overlay;
+      pointer-events:none;
+    }
+    .posterContent{
+      position:absolute;
+      inset:0;
+      padding: 18px 16px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      color: rgba(255,255,255,.92);
+    }
+    .posterTopLine{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      font-weight:900;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      font-size: 11px;
+      opacity:.9;
+    }
+    .badge{
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 12px 24px rgba(0,0,0,.20);
+      letter-spacing: .9px;
+      font-size: 10px;
+      font-weight: 950;
+    }
+    .posterTitle{
+      margin-top: 12px;
+      font-size: 44px;
+      font-weight: 1000;
+      line-height: .95;
+      letter-spacing: 1.2px;
+      text-shadow: 0 20px 40px rgba(0,0,0,.35);
+    }
+    .posterTitle span{
+      display:block;
+      font-size: 18px;
+      font-weight: 850;
+      letter-spacing: 3px;
+      opacity:.92;
+      margin-bottom: 8px;
+    }
+    .posterTagline{
+      margin-top: 10px;
+      font-size: 14px;
+      color: rgba(255,255,255,.80);
+      line-height: 1.45;
+      max-width: 300px;
+    }
+    .posterBottom{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .credits{
+      font-size: 11px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.75);
+      line-height: 1.45;
+    }
+    .rating{
+      text-align:right;
+      font-weight: 950;
+      font-size: 12px;
+      color: rgba(255,255,255,.86);
+    }
+    .stars{ letter-spacing: 2px; }
+
+    /* Page 6 countdown */
     .countdown{
       margin-top: 12px;
       display:grid;
@@ -389,49 +493,6 @@
       text-transform: uppercase;
       letter-spacing:.8px;
     }
-
-    /* Music unlock overlay (iOS autoplay rules) */
-    .audioGate{
-      position:fixed;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
-      background: rgba(0,0,0,.55);
-      backdrop-filter: blur(10px);
-      z-index: 9999;
-    }
-    .audioGate .box{
-      width: min(420px, 100%);
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.22);
-      color: white;
-      border-radius: 22px;
-      padding: 18px 16px;
-      text-align:center;
-      box-shadow: 0 18px 50px rgba(0,0,0,.30);
-    }
-    .audioGate h3{
-      margin: 0 0 10px;
-      font-size: 18px;
-      font-weight: 950;
-    }
-    .audioGate p{
-      margin: 0 0 12px;
-      color: rgba(255,255,255,.85);
-      font-size: 14px;
-      line-height: 1.45;
-    }
-    .audioGate button{
-      width:100%;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color:white;
-      border-radius: 16px;
-      font-weight: 900;
-      font-size: 17px;
-      min-height: 52px;
-    }
   </style>
 </head>
 
@@ -442,15 +503,7 @@
 
   <div class="hearts" id="hearts"></div>
 
-  <div class="audioGate" id="audioGate">
-    <div class="box">
-      <h3>Tap to start the music 🎷</h3>
-      <p>iPhone blocks autoplay until you tap once. After this, it will play normally.</p>
-      <button id="audioGateBtn">Start</button>
-    </div>
-  </div>
-
-  <div class="app" id="app">
+  <div class="app">
     <div class="card dark" id="card">
       <!-- PAGE 1 -->
       <section class="page active" id="p1">
@@ -476,14 +529,9 @@
           <div class="prompt" id="prompt">
             <div style="min-width:0;flex:1;">
               <div class="promptText" id="promptText">💭</div>
-              <div class="promptSmall" id="promptSmall"> </div>
             </div>
             <img class="promptImg" id="promptImg" alt="cute reaction" />
             <div class="emojiBig" id="promptEmoji" aria-hidden="true">🥺</div>
-          </div>
-
-          <div style="margin-top:2px;color:rgba(255,255,255,.55);font-size:12px;">
-            Tip: if the music doesn’t start later, tap once to allow it.
           </div>
         </div>
       </section>
@@ -506,7 +554,7 @@
             <div class="heroOverlay"></div>
           </div>
 
-          <div class="ctaRow">
+          <div class="row" style="margin-top: 6px;">
             <button class="btnPrimary hidden" id="itineraryBtn">Itinerary of the night</button>
           </div>
         </div>
@@ -541,13 +589,63 @@
           </div>
 
           <div class="row" style="margin-top:auto;">
-            <button class="btnPrimary" id="nextBtn">Next</button>
+            <button class="btnPrimary" id="toMovieBtn">Next</button>
           </div>
         </div>
       </section>
 
-      <!-- PAGE 5 -->
+      <!-- PAGE 5: MOVIE REVEAL -->
       <section class="page" id="p5">
+        <div class="posterWrap">
+          <div style="text-align:center; margin-top: 6px;">
+            <h2 style="margin:0 0 6px; font-size:26px; font-weight:980;">🎬 Movie Reveal</h2>
+            <div style="color:var(--light-muted);font-size:14px;">Tonight’s pick is officially…</div>
+          </div>
+
+          <div class="poster" role="img" aria-label="About Time movie poster (stylized)">
+            <div class="posterBg"></div>
+            <div class="posterFilm"></div>
+            <div class="posterGrain"></div>
+
+            <div class="posterContent">
+              <div>
+                <div class="posterTopLine">
+                  <div class="badge">Tonight • 8 PM</div>
+                  <div class="badge">For Jalina 💗</div>
+                </div>
+
+                <div class="posterTitle">
+                  <span>ABOUT</span>
+                  TIME
+                </div>
+
+                <div class="posterTagline">
+                  A cozy romance with the kind of feeling that stays with you.
+                  (Also: perfect for us.)
+                </div>
+              </div>
+
+              <div class="posterBottom">
+                <div class="credits">
+                  A MOVIE DATE PRESENTATION<br>
+                  DIRECTED BY: YOUR FAVORITE PERSON
+                </div>
+                <div class="rating">
+                  <div class="stars">★★★★★</div>
+                  <div style="opacity:.85;">Certified Cozy</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:auto;">
+            <button class="btnPrimary" id="toCountdownBtn">Next</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 6: COUNTDOWN -->
+      <section class="page" id="p6">
         <div style="display:flex; flex-direction:column; gap:14px; min-height:520px;">
           <div style="text-align:center; margin-top: 10px;">
             <h2 style="margin:0 0 8px; font-size:28px; font-weight:980;">See you tomorrow at 7 💘</h2>
@@ -564,22 +662,17 @@
           <div class="listBox" style="margin-top:10px;">
             <div style="font-weight:900;">💡 Little reminder</div>
             <div style="margin-top:6px; color:var(--light-muted); font-size:14px; line-height:1.5;">
-              Keep your sound on… I have something playing for you 🎷
+              You + me + snacks + About Time = perfect.
             </div>
           </div>
 
           <div class="row" style="margin-top:auto;">
-            <button class="btnPrimary" onclick="go(2)">Back to start</button>
+            <button class="btnPrimary" id="restartBtn">Back to start</button>
           </div>
         </div>
       </section>
     </div>
   </div>
-
-  <!-- Add your audio file to the repo as "music.mp3" -->
-  <audio id="song" preload="auto" playsinline>
-    <source src="music.mp3" type="audio/mpeg" />
-  </audio>
 
   <script>
     // ---------- Page system ----------
@@ -591,11 +684,13 @@
       3: document.getElementById("p3"),
       4: document.getElementById("p4"),
       5: document.getElementById("p5"),
+      6: document.getElementById("p6"),
     };
 
     function setActive(n){
       Object.values(pages).forEach(p => p.classList.remove("active"));
       pages[n].classList.add("active");
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
 
     function setThemeLight(isLight){
@@ -611,7 +706,7 @@
     }
 
     function go(n){
-      // Pages 1-2 minimal/dark; pages 3-5 jazzy/light
+      // Pages 1-2 minimal/dark; pages 3-6 jazzy/light
       setThemeLight(n >= 3);
       setActive(n);
 
@@ -620,9 +715,6 @@
         const btn = document.getElementById("itineraryBtn");
         btn.classList.add("hidden");
         setTimeout(() => btn.classList.remove("hidden"), 4000);
-
-        // Try to start music (iOS may block without a user gesture)
-        startMusicOrGate();
       }
     }
 
@@ -631,10 +723,9 @@
 
     // ---------- Page 2 (No button sequence) ----------
     const yes2 = document.getElementById("yes2");
-    const no2 = document.getElementById("no2");
+    const no2  = document.getElementById("no2");
     const promptText = document.getElementById("promptText");
-    const promptSmall = document.getElementById("promptSmall");
-    const promptImg = document.getElementById("promptImg");
+    const promptImg  = document.getElementById("promptImg");
     const promptEmoji = document.getElementById("promptEmoji");
     const promptBox = document.getElementById("prompt");
 
@@ -664,7 +755,6 @@
       promptEmoji.style.display = "none";
 
       promptText.textContent = item.text || "";
-      promptSmall.textContent = item.text ? "" : "";
 
       if(item.img){
         promptImg.src = item.img;
@@ -675,7 +765,7 @@
         promptEmoji.style.display = "block";
       }
 
-      // little bounce feedback
+      // Bounce feedback
       promptBox.animate(
         [{ transform:"scale(1)" }, { transform:"scale(1.02)" }, { transform:"scale(1)" }],
         { duration: 180, easing:"ease-out" }
@@ -684,7 +774,6 @@
 
     no2.addEventListener("click", () => {
       noCount++;
-
       if(noCount <= firstSequence.length){
         renderPrompt(firstSequence[noCount - 1]);
       } else {
@@ -696,41 +785,9 @@
 
     yes2.addEventListener("click", () => go(3));
     document.getElementById("itineraryBtn").addEventListener("click", () => go(4));
-    document.getElementById("nextBtn").addEventListener("click", () => go(5));
-
-    // ---------- Music handling (iOS-friendly) ----------
-    const song = document.getElementById("song");
-    const audioGate = document.getElementById("audioGate");
-    const audioGateBtn = document.getElementById("audioGateBtn");
-
-    async function tryPlay(){
-      try{
-        song.volume = 0.95;
-        await song.play();
-        return true;
-      }catch(e){
-        return false;
-      }
-    }
-
-    async function startMusicOrGate(){
-      const ok = await tryPlay();
-      if(!ok){
-        audioGate.style.display = "flex";
-      }
-    }
-
-    audioGateBtn.addEventListener("click", async () => {
-      audioGate.style.display = "none";
-      await tryPlay();
-    });
-
-    // Also allow a generic first tap to unlock audio if needed
-    window.addEventListener("pointerdown", async () => {
-      if(song.paused && pages[3].classList.contains("active")){
-        await tryPlay();
-      }
-    }, { passive:true });
+    document.getElementById("toMovieBtn").addEventListener("click", () => go(5));
+    document.getElementById("toCountdownBtn").addEventListener("click", () => go(6));
+    document.getElementById("restartBtn").addEventListener("click", () => go(2));
 
     // ---------- Page 4: "I love you" notes + heart explosion ----------
     const loveNotes = document.getElementById("loveNotes");
@@ -739,6 +796,7 @@
       "💗 I love you", "I love you so much", "I love you",
       "psst… I love you", "hey… I love you"
     ];
+
     function seedLoveNotes(){
       loveNotes.innerHTML = "";
       const positions = [
@@ -760,7 +818,7 @@
     const heartBtn = document.getElementById("heartBtn");
     const heartChars = ["💖","💗","💘","💕","💞","💓","💝"];
 
-    function heartBurst(count = 120){
+    function heartBurst(count = 140){
       hearts.style.display = "block";
       for(let i=0;i<count;i++){
         const h = document.createElement("div");
@@ -778,20 +836,20 @@
         if(!hearts.querySelector(".heart")) hearts.style.display = "none";
       }, 5600);
     }
-    heartBtn.addEventListener("click", () => heartBurst(140));
+    heartBtn.addEventListener("click", () => heartBurst(160));
 
-    // ---------- Page 5 countdown to Feb 14th 7PM (local device time) ----------
+    // ---------- Page 6 countdown to Feb 14th 7PM (local device time) ----------
     const dEl = document.getElementById("d");
     const hEl = document.getElementById("h");
     const mEl = document.getElementById("m");
     const sEl = document.getElementById("s");
 
     function getTargetDate(){
-      // Target: Feb 14, 7:00 PM local
       const now = new Date();
       let year = now.getFullYear();
 
-      let target = new Date(year, 1, 14, 19, 0, 0); // month=1 => February
+      // Feb = month 1 (0-indexed). 7PM = 19:00
+      let target = new Date(year, 1, 14, 19, 0, 0);
       if(target.getTime() < now.getTime()){
         year += 1;
         target = new Date(year, 1, 14, 19, 0, 0);
